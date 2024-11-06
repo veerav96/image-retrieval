@@ -1,0 +1,1 @@
+url: ${oc.env:PAPYRUS_INFERENCE_URL, http://localhost:8001}

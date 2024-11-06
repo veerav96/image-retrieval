@@ -1,0 +1,6 @@
+broker_url: ${oc.env:PAPYRUS_BROKER_URL, redis://localhost:6379}
+backend_url: ${oc.env:PAPYRUS_BACKEND_URL, redis://localhost:6379}
+periodic:
+  sync_storage:
+    interval: 600
+    limit: 100

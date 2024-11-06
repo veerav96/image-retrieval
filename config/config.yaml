@@ -1,0 +1,10 @@
+defaults:
+  - _self_
+  - database: default
+  - storage: default
+  - worker: default
+  - inference: default
+
+hydra:
+  run:
+    dir: ./outputs/${hydra.job.name}/${now:%Y-%m-%d_%H-%M-%S}

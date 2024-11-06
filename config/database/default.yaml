@@ -1,0 +1,5 @@
+db: ${oc.env:PAPYRUS_POSTGRES_DB, papyrus}
+host: ${oc.env:PAPYRUS_POSTGRES_HOST, localhost}
+port: ${oc.env:PAPYRUS_POSTGRES_PORT, 5432}
+user: ${oc.env:PAPYRUS_POSTGRES_USER, papyrus}
+password: ${oc.env:PAPYRUS_POSTGRES_PASSWORD, papyrus}
