@@ -14,14 +14,14 @@ This project is an end-to-end image retrieval webapp! Our main goal is to retrie
 
 
 ![Problem Statement](src/docs/assets/intro1.jpeg)
-*Alt text: problem statement*
+
 
 ## Demo
 
 Use the installation guide to set up the project and download the data for the demo. Once the installation is successful, the webapp can be launched.
 
 ![Demo GIF](src/docs/assets/demo.gif)
-*Alt text: demo gif*
+
 
 
 ## Installation
