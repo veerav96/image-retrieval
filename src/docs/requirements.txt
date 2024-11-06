@@ -1,0 +1,4 @@
+semver
+sphinx
+sphinx_rtd_theme
+sphinxcontrib.openapi
