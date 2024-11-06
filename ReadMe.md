@@ -8,6 +8,22 @@ The full documentation for this project is hosted on [Read the Docs](https://ima
 
 ![Documentation Status](https://readthedocs.org/projects/image-retrieval/badge/?version=latest)
 
+# Introduction
+
+This project is an end-to-end image retrieval webapp! Our main goal is to retrieve similar papyrus images. This can be thought of as 'Google Lens' for papyrus images. The result is a hyperlink to the most similar papyrus, and the corresponding metadata and information about it can be found on [papyri.info](https://papyri.info/).
+
+
+![Problem Statement](src/docs/assets/intro1.jpeg)
+*Alt text: problem statement*
+
+## Demo
+
+Use the installation guide to set up the project and download the data for the demo. Once the installation is successful, the webapp can be launched.
+
+![Demo GIF](src/docs/assets/demo.gif)
+*Alt text: demo gif*
+
+
 ## Installation
 
 To install **Papyrus Retrieval**, follow these steps:
