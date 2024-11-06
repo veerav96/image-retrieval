@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papyrus Retrieval </title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Papyrus Retrieval Tool</h1>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="upload-section">
+                <input type="file" id="fileInput" name="image" accept="image/*" required>
+                <button type="button" id="uploadBtn" disabled>Upload</button>
+            </div>
+            <input type="hidden" id="pointsInput" name="points">
+            <div class="canvas-container" id="canvasContainer" style="display: none;">
+                <button type="button" id="goBackBtn">Back</button>
+                <canvas id="imageCanvas"></canvas>
+                <p id="canvasTitle">Choose AOI by selecting any 4 points on the image</p>
+                <button type="button" id="redoBtn" style="display: none;">Redo</button>
+                <button type="submit" id="submitBtn" style="display: none;">Submit</button>
+
+                <p id="status"></p>
+                <div id="resultContainer" style="display: none;">
+                    <h2>Result:</h2>
+                    <div id="result"></div> <!-- Container for the clickable URLs -->
+                </div>
+            </div>
+
+        </form>
+        <div id="tooltip"></div>
+
+    </div>
+    <script src="../static/main.js"></script>
+</body>
+</html>

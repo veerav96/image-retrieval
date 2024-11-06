@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-added-large-files
+        args: [ '--maxkb=1024' ]
+        exclude: ^.venv*|out|refs.bib
+      - id: check-json
+        exclude: ^.venv*|out
+      - id: check-yaml
+        exclude: ^.venv*|out
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-vcs-permalinks
+      - id: debug-statements
+      - id: detect-private-key
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+        args: [ '--fix=lf' ]
+        description: Forces to replace line ending by the UNIX 'lf' character.
+        exclude: ^.venv*|out
+      - id: no-commit-to-branch
+        args: [ --branch, main ]
+      - id: trailing-whitespace
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.8
+    hooks:
+      - id: ruff
+        args: [ --fix ]
+      - id: ruff-format

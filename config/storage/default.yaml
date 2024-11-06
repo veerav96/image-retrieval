@@ -1,0 +1,7 @@
+endpoint: ${oc.env:PAPYRUS_MINIO_URL, localhost:9000}
+access_key: ${oc.env:PAPYRUS_MINIO_ACCESS_KEY}
+secret_key: ${oc.env:PAPYRUS_MINIO_SECRET_KEY}
+secure: false
+buckets:
+  - papyrus-query
+  - papyrus-model

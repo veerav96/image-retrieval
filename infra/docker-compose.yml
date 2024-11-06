@@ -1,0 +1,44 @@
+name: papyrus-retrieval
+
+services:
+  minio:
+    image: quay.io/minio/minio:RELEASE.2024-08-29T01-40-52Z.fips
+    restart: always
+    ports:
+      - '9000:9000'
+      - '9090:9090'
+    volumes:
+      - ./papyrus/data/minio:/data
+    environment:
+      MINIO_ROOT_USER: papyrus
+      MINIO_ROOT_PASSWORD: papyrus_retrieval
+    command: server --console-address ':9090' /data
+
+  postgres:
+    image: pgvector/pgvector:0.7.4-pg16
+    ports:
+      - 5432:5432
+    volumes:
+      - ./papyrus/data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: papyrus
+      POSTGRES_PASSWORD: papyrus
+      POSTGRES_DB: papyrus
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "papyrus" ]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    restart: always
+
+  redis:
+    image: redis:7.4-alpine
+    command: redis-server
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    ports:
+      - 6379:6379
+    restart: always

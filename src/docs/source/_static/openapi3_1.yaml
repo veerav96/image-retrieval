@@ -1,0 +1,213 @@
+openapi: 3.1.0
+info:
+  title: Papyrus Retrieval
+  description: |
+
+    Image search to fetch information about a given papyrus.
+  version: 0.1.0
+paths:
+  /health:
+    get:
+      tags:
+        - health
+      summary: Health
+      description: Verify whether the components required for running application API are operational
+      operationId: health_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /papyrus/submit/:
+    post:
+      tags:
+        - papyrus
+      summary: Schedule Papyrus Retrieval
+      description: Initiates a workflow to retrieve top k similar papyrus
+      operationId: schedule_papyrus_retrieval_papyrus_submit__post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: >-
+                #/components/schemas/Body_schedule_papyrus_retrieval_papyrus_submit__post
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /papyrus/result/{task_id}:
+    get:
+      tags:
+        - papyrus
+      summary: Retrieve Papyrus
+      description: >-
+        Retrieve the result for the user-submitted query.
+
+      operationId: retrieve_papyrus_papyrus_result__task_id__get
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            title: Task Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RetrieveResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /:
+    get:
+      summary: Home
+      operationId: home__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            text/html:
+              schema:
+                type: string
+components:
+  schemas:
+    Body_schedule_papyrus_retrieval_papyrus_submit__post:
+      properties:
+        coordinates:
+          type: string
+          title: Coordinates
+        image:
+          type: string
+          format: binary
+          title: Image
+      type: object
+      required:
+        - coordinates
+        - image
+      title: Body_schedule_papyrus_retrieval_papyrus_submit__post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Health:
+      type: string
+      enum:
+        - ok
+        - not_ok
+      title: Health
+    HealthResponse:
+      properties:
+        storage:
+          allOf:
+            - $ref: '#/components/schemas/Health'
+          description: Storage health status
+        database:
+          allOf:
+            - $ref: '#/components/schemas/Health'
+          description: Database health status
+        inference:
+          allOf:
+            - $ref: '#/components/schemas/Health'
+          description: Inference server health status
+      type: object
+      required:
+        - storage
+        - database
+        - inference
+      title: HealthResponse
+    RetrieveResponse:
+      properties:
+        request_id:
+          type: string
+          format: uuid
+          title: Estimation ID
+          description: Processing task ID that can be used to fetch the result when ready
+          examples:
+            - 123e4567-e89b-12d3-a456-426614174000
+        query_status:
+          type: string
+          title: Query Status
+          description: Status of the computation
+          examples:
+            - SUCCESS
+        query_result:
+          items:
+            type: string
+          type: array
+          title: Query Result
+          description: Result URLs or other information
+          default: []
+          examples:
+            - - http://example.com/papyrus
+      type: object
+      required:
+        - request_id
+        - query_status
+      title: RetrieveResponse
+    ScheduleResponse:
+      properties:
+        task_id:
+          type: string
+          format: uuid
+          title: Task ID
+          description: >-
+            Processing papyrus retrieval task id than can be used to fetch the
+            results when ready
+          examples:
+            - some-unique-task-id
+        status:
+          type: string
+          title: Status
+          description: Initial status of the task
+          examples:
+            - Papyrus Retrieval has started!
+      type: object
+      required:
+        - task_id
+        - status
+      title: ScheduleResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError

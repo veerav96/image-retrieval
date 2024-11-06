@@ -1,0 +1,12 @@
+# Exclude the build directory
+build/
+
+# Exclude byte-compiled / optimized / temporary files
+*.pyc
+*.pyo
+__pycache__
+
+# Exclude MacOS-specific files
+.DS_Store
+
+.env
